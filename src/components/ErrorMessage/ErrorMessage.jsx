@@ -1,5 +1,7 @@
-import css from './ErrorMessage.module.css'
+import css from './ErrorMessage.module.css';
 
 export default function ErrorMessage() {
-    d
-}
+    return (
+        <p>Whoops, something went wrong! Please try reloading this page!</p>
+    )
+};

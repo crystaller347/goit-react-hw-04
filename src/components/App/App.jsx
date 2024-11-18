@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import css from './App.module.css';
+import { fetchImages } from '../../images-api.js';
 import SearchBar from '../SearchBar/SearchBar.jsx';
 import Loader from '../Loader/Loader.jsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage.jsx';
