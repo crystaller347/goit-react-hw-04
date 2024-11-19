@@ -17,27 +17,35 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [modal, setModal] = useState(false);
 
+  const handleSubmit = (query) => {
+    setQuery(query);
+    setPage(1);
+    setImages([]);
+  }
+
   useEffect(() => {
     if (!query) {
       return;
     }
-    const handleSubmit = async (query, page) => {
+    const asyncWrapper = async () => {
       try {
-        setImages([]);
         setError(false);
         setLoading(true);
         const data = await fetchImages(query);
         setImages(data);
         setTotalPages(data.total_pages);
-        setPage(page + 1);
       } catch (error) {
         setError(true);
       } finally {
         setLoading(false);
       }
     };
-    handleSubmit();
+    asyncWrapper();
   }, [query, page]);
+
+  const handleLoad = () => {
+    setPage(prevPage => prevPage + 1);
+  }
 
   const openModal = () => {
     setModal(true);
@@ -53,8 +61,8 @@ export default function App() {
       {loading && <Loader />}
       {error && <ErrorMessage />}
       {images.length > 0 && <ImageGallery items={images} open={openModal} />}
-      {images.length > 0 && page <= totalPages && <LoadMoreBtn />}
-      <ImageModal images={images} isOpen={modal} close={closeModal} />
+      {images.length > 0 && page <= totalPages && <LoadMoreBtn loadMore={handleLoad} />}
+      {modal && <ImageModal images={images} close={closeModal} />}
     </div>
   )
 }

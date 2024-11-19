@@ -1,11 +1,7 @@
 import css from './LoadMoreBtn.module.css';
 
-export default function LoadMoreBtn({ handlePage }) {
-    const handleClick = () => {
-        handlePage(page + 1);
-    }
-
+export default function LoadMoreBtn({ loadMore }) {
     return (
-        <button onClick={handleClick}>Load more...</button>
+        <button onClick={() => loadMore}>Load more...</button>
     )
 }
