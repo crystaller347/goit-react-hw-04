@@ -61,7 +61,7 @@ export default function App() {
       {loading && <Loader />}
       {error && <ErrorMessage />}
       {images.length > 0 && <ImageGallery items={images} open={openModal} />}
-      {images.length > 0 && page <= totalPages && <LoadMoreBtn loadMore={handleLoad} />}
+      {images.length > 0 && page < totalPages && <LoadMoreBtn onClick={() => handleLoad} />}
       {modal && <ImageModal images={images} close={closeModal} />}
     </div>
   )
