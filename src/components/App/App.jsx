@@ -30,7 +30,7 @@ export default function App() {
       <SearchBar onSubmit={handleSubmit} />
       {loading && <Loader />}
       {error && <ErrorMessage />}
-      {images.length > 0 && <ImageGallery />}
+      {images.length > 0 && <ImageGallery items={images} />}
     </div>
   )
 }
