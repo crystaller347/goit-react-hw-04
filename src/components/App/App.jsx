@@ -32,7 +32,7 @@ export default function App() {
         setError(false);
         setLoading(true);
         const data = await fetchImages(query);
-        setImages(data);
+        setImages(data.results);
         setTotalPages(data.total_pages);
       } catch (error) {
         setError(true);
