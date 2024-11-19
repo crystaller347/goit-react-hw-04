@@ -16,6 +16,7 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [modal, setModal] = useState(false);
+  const [image, setImage] = useState(null);
 
   const handleSubmit = (query) => {
     setQuery(query);
@@ -31,8 +32,8 @@ export default function App() {
       try {
         setError(false);
         setLoading(true);
-        const data = await fetchImages(query);
-        setImages(data.results);
+        const data = await fetchImages(query, page);
+        setImages((prevImages) => [...prevImages, ...data.results]);
         setTotalPages(data.total_pages);
       } catch (error) {
         setError(true);
@@ -47,11 +48,13 @@ export default function App() {
     setPage(prevPage => prevPage + 1);
   }
 
-  const openModal = () => {
+  const openModal = (image) => {
+    setImage(image);
     setModal(true);
   }
 
   const closeModal = () => {
+    setImage(null);
     setModal(false);
   }
 
@@ -61,8 +64,8 @@ export default function App() {
       {loading && <Loader />}
       {error && <ErrorMessage />}
       {images.length > 0 && <ImageGallery items={images} open={openModal} />}
-      {images.length > 0 && page < totalPages && <LoadMoreBtn onClick={() => handleLoad} />}
-      {modal && <ImageModal images={images} close={closeModal} />}
+      {images.length > 0 && page < totalPages && <LoadMoreBtn loadMore={handleLoad} />}
+      <ImageModal isOpen={modal} image={image} close={closeModal} />
     </div>
   )
 }
