@@ -57,6 +57,10 @@ export default function App() {
     setModal(false);
   }
 
+  useEffect(() => {
+    modal ? document.body.style.overflow = 'hidden' : document.body.style.overflow = 'scroll';
+  }, [modal]);
+
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
