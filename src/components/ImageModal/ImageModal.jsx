@@ -1,4 +1,3 @@
-import css from './ImageModal.module.css';
 import Modal from 'react-modal';
 
 const customStyles = {

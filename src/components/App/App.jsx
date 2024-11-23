@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import css from './App.module.css';
 import { fetchImages } from '../../images-api.js';
 import SearchBar from '../SearchBar/SearchBar.jsx';
 import Loader from '../Loader/Loader.jsx';
@@ -61,10 +60,10 @@ export default function App() {
   return (
     <div>
       <SearchBar onSubmit={handleSubmit} />
-      {loading && <Loader />}
       {error && <ErrorMessage />}
       {images.length > 0 && <ImageGallery items={images} open={openModal} />}
-      {images.length > 0 && page < totalPages && <LoadMoreBtn loadMore={handleLoad} />}
+      {loading && <Loader />}
+      {images.length > 0 && page < totalPages && !loading && <LoadMoreBtn loadMore={handleLoad} />}
       <ImageModal isOpen={modal} image={image} close={closeModal} />
     </div>
   )
